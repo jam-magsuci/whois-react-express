@@ -26,8 +26,15 @@ export default function App() {
         initialValues={{ domainName: "", requestedData: "" }}
         validate={(values) => {
           const errors = {};
+          const domainNameRegex =
+            /^(?!:\/\/)([a-zA-Z0-9-_]+\.)+[a-zA-Z]{2,11}?$/;
+
           if (!values.domainName) {
             errors.domainName = "Domain name required";
+          }
+
+          if (!domainNameRegex.test(values.domainName)) {
+            errors.domainName = "Invalid domain name";
           }
 
           if (!values.requestedData) {
@@ -96,7 +103,7 @@ export default function App() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 // value={values.email}
-                placeholder="Enter domain name"
+                placeholder="Enter domain name (ex. google.com)"
                 className="border-2 border-[#ccc] rounded-[15px] p-[15px] w-full sm:w-[380px]"
               />
 
